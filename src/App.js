@@ -6,17 +6,39 @@ import Die from "./components/Die";
 function App() {
 	const [dice, setDice] = React.useState(getNewDice());
 
+	function holdDie(dieId) {
+		// dice.map((die) => {
+		// 	if (die.id === dieId) {
+		// 		die.isHeld = !die.isHeld;
+		// 	}
+		// });
+		const heldDie = dice.find((die) => die.id === dieId);
+		heldDie.isHeld = !heldDie.isHeld;
+
+		setDice([...dice]);
+	}
+
 	function getNewDice() {
 		const dieNumArr = [];
 		for (let i = 0; i < 10; i++) {
-			dieNumArr.push({ value: Math.ceil(Math.random() * 6), isHeld: false }); //random from 0 to 5, ceiled so that 1 to 6
+			dieNumArr.push({
+				id: nanoid(),
+				value: Math.ceil(Math.random() * 6),
+				isHeld: false,
+			}); //random from 0 to 5, ceiled so that 1 to 6
 		}
 		return dieNumArr;
 	}
 
 	const diceArr = dice.map((die) => {
-		// return <Die key={dice.indexOf(die)} value={die.value} isHeld={die.isHeld} />;
-		return <Die key={nanoid()} value={die.value} isHeld={die.isHeld} />;
+		return (
+			<Die
+				key={die.id}
+				value={die.value}
+				isHeld={die.isHeld}
+				holdDie={() => holdDie(die.id)}
+			/>
+		);
 	});
 
 	return (
