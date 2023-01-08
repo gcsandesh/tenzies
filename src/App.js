@@ -13,7 +13,7 @@ function App() {
 		return dieNumArr;
 	}
 	const diceArr = dice.map((die) => {
-		return <Die value={die.value} />;
+		return <Die value={die.value} isHeld={die.isHeld} />;
 	});
 	console.log(dice);
 	return (
