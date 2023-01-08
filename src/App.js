@@ -6,12 +6,13 @@ import Die from "./components/Die";
 function App() {
 	const [dice, setDice] = React.useState(getNewDice());
 
+	function rollDie() {
+		setDice((oldDice) =>
+			oldDice.map((die) => (die.isHeld ? die : generateDie()))
+		);
+	}
+
 	function holdDie(dieId) {
-		// dice.map((die) => {
-		// 	if (die.id === dieId) {
-		// 		die.isHeld = !die.isHeld;
-		// 	}
-		// });
 		const heldDie = dice.find((die) => die.id === dieId);
 		heldDie.isHeld = !heldDie.isHeld;
 
@@ -21,13 +22,17 @@ function App() {
 	function getNewDice() {
 		const dieNumArr = [];
 		for (let i = 0; i < 10; i++) {
-			dieNumArr.push({
-				id: nanoid(),
-				value: Math.ceil(Math.random() * 6),
-				isHeld: false,
-			}); //random from 0 to 5, ceiled so that 1 to 6
+			dieNumArr.push(generateDie()); //random from 0 to 5, ceiled so that 1 to 6
 		}
 		return dieNumArr;
+	}
+
+	function generateDie() {
+		return {
+			id: nanoid(),
+			value: Math.ceil(Math.random() * 6),
+			isHeld: false,
+		};
 	}
 
 	const diceArr = dice.map((die) => {
@@ -49,7 +54,8 @@ function App() {
 				{/* numbers container */}
 				<div className="grid gap-6 grid-cols-5">{diceArr}</div>
 				<button
-					onClick={() => setDice(getNewDice())}
+					// onClick={() => setDice(getNewDice())}
+					onClick={rollDie}
 					className="bg-[#5035ff] rounded-md px-4 py-2 text-white font-semibold shadow-md active:shadow-black active:shadow-inner "
 				>
 					Roll
