@@ -1,21 +1,24 @@
 import React from "react";
+import { nanoid } from "nanoid";
 import "./App.css";
 import Die from "./components/Die";
 
 function App() {
 	const [dice, setDice] = React.useState(getNewDice());
+
 	function getNewDice() {
 		const dieNumArr = [];
 		for (let i = 0; i < 10; i++) {
 			dieNumArr.push({ value: Math.ceil(Math.random() * 6), isHeld: false }); //random from 0 to 5, ceiled so that 1 to 6
 		}
-		// console.log(dieNumArr);
 		return dieNumArr;
 	}
+
 	const diceArr = dice.map((die) => {
-		return <Die value={die.value} isHeld={die.isHeld} />;
+		// return <Die key={dice.indexOf(die)} value={die.value} isHeld={die.isHeld} />;
+		return <Die key={nanoid()} value={die.value} isHeld={die.isHeld} />;
 	});
-	console.log(dice);
+
 	return (
 		// app
 		<main className="App w-full h-screen flex justify-center items-center bg-[#0b2434]">
