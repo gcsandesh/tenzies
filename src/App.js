@@ -50,7 +50,12 @@ function App() {
 		// app
 		<main className="App w-full h-screen flex justify-center items-center bg-[#0b2434]">
 			{/* inside white box */}
-			<div className="bg-[#f5f5f5] h-1/2 max-h-96 p-6 flex flex-col justify-center items-center gap-4 rounded-lg">
+			<div className="bg-[#f5f5f5] h-3/4 max-h-96 max-w-lg p-6 m-5 flex flex-col justify-around items-center gap-4 rounded-lg">
+				<h1 className="text-2xl font-semibold">Tenzies</h1>
+				<p className="text-center">
+					Roll until all dice are same. <br />
+					Click each die to freeze it at its current value between rolls.
+				</p>
 				{/* numbers container */}
 				<div className="grid gap-6 grid-cols-5">{diceArr}</div>
 				<button
