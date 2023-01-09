@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
+import Confetti from "react-confetti";
+
 import "./App.css";
 import Die from "./components/Die";
 
 function App() {
-	const [dice, setDice] = React.useState(getNewDice());
+	const [dice, setDice] = useState(getNewDice());
+	const [tenzies, setTenzies] = useState(false);
+	const [rollCount, setRollCount] = useState(0);
+
+	useEffect(() => {
+		const heldDice = dice.every((die) => die.isHeld); //true if every dice is held
+		const sameDieValue = dice.every((die) => die.value === dice[0].value); //true if every die's value is same
+		if (heldDice && sameDieValue) {
+			setTenzies(true);
+			console.log("You won!");
+		} else setTenzies(false);
+		return;
+	}, [dice]);
+
+
 
 	function rollDie() {
-		setDice((oldDice) =>
-			oldDice.map((die) => (die.isHeld ? die : generateDie()))
-		);
+		if (!tenzies) {
+			setDice((oldDice) =>
+				oldDice.map((die) => (die.isHeld ? die : generateDie()))
+			);
+			setRollCount((prevCount) => prevCount + 1);
+		} else {
+			setDice(getNewDice());
+			setRollCount(0);
+		}
 	}
 
 	function holdDie(dieId) {
@@ -49,21 +71,27 @@ function App() {
 	return (
 		// app
 		<main className="App w-full h-screen flex justify-center items-center bg-[#0b2434]">
+			{tenzies && (
+				<Confetti width={window.innerWidth} height={window.innerHeight} />
+			)}
 			{/* inside white box */}
-			<div className="bg-[#f5f5f5] h-3/4 max-h-96 max-w-lg p-6 m-5 flex flex-col justify-around items-center gap-4 rounded-lg">
+			<div className="bg-[#f5f5f5] h-3/4 max-w-lg p-6 m-5 flex flex-col justify-around items-center gap-4 rounded-lg">
 				<h1 className="text-2xl font-semibold">Tenzies</h1>
 				<p className="text-center">
-					Roll until all dice are same. <br />
+					Roll until all dice are same.
+					<br />
 					Click each die to freeze it at its current value between rolls.
 				</p>
 				{/* numbers container */}
+        <p>{}</p>
 				<div className="grid gap-6 grid-cols-5">{diceArr}</div>
+				{tenzies && <p>Solved in {rollCount} rolls!</p>}
 				<button
 					// onClick={() => setDice(getNewDice())}
 					onClick={rollDie}
 					className="bg-[#5035ff] rounded-md px-4 py-2 text-white font-semibold shadow-md active:shadow-black active:shadow-inner "
 				>
-					Roll
+					{tenzies ? "New Game" : "Roll"}
 				</button>
 			</div>
 		</main>
