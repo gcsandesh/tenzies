@@ -9,18 +9,16 @@ function App() {
 	const [dice, setDice] = useState(getNewDice());
 	const [tenzies, setTenzies] = useState(false);
 	const [rollCount, setRollCount] = useState(0);
-
 	useEffect(() => {
 		const heldDice = dice.every((die) => die.isHeld); //true if every dice is held
 		const sameDieValue = dice.every((die) => die.value === dice[0].value); //true if every die's value is same
 		if (heldDice && sameDieValue) {
 			setTenzies(true);
-			console.log("You won!");
+			// console.log("You won!");
 		} else setTenzies(false);
+		// console.log("roll: ", rollCount);
 		return;
 	}, [dice]);
-
-
 
 	function rollDie() {
 		if (!tenzies) {
@@ -75,7 +73,7 @@ function App() {
 				<Confetti width={window.innerWidth} height={window.innerHeight} />
 			)}
 			{/* inside white box */}
-			<div className="bg-[#f5f5f5] h-3/4 max-w-lg p-6 m-5 flex flex-col justify-around items-center gap-4 rounded-lg">
+			<div className="bg-[#f5f5f5] h-3/4 max-w-lg px-6 py-16 m-5 flex flex-col justify-around items-center gap-4 rounded-lg">
 				<h1 className="text-2xl font-semibold">Tenzies</h1>
 				<p className="text-center">
 					Roll until all dice are same.
@@ -83,11 +81,9 @@ function App() {
 					Click each die to freeze it at its current value between rolls.
 				</p>
 				{/* numbers container */}
-        <p>{}</p>
 				<div className="grid gap-6 grid-cols-5">{diceArr}</div>
 				{tenzies && <p>Solved in {rollCount} rolls!</p>}
 				<button
-					// onClick={() => setDice(getNewDice())}
 					onClick={rollDie}
 					className="bg-[#5035ff] rounded-md px-4 py-2 text-white font-semibold shadow-md active:shadow-black active:shadow-inner "
 				>
