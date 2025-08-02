@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 export default function Die({ value, isHeld, holdDie }) {
 	return (
@@ -10,5 +10,5 @@ export default function Die({ value, isHeld, holdDie }) {
 		>
 			<p className=" font-semibold">{value}</p>
 		</div>
-	);
+	)
 }

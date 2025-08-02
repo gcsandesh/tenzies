@@ -12,7 +12,7 @@ Roll until all dice are same. You need to touch a die to hold it and prevent fro
 
 ## To start the app
 
-`npm run start`
+`npm run dev`
 
 ## Author
 
