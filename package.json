@@ -6,7 +6,7 @@
 	"homepage": "https://tenzies-green.vercel.app/",
 	"dependencies": {
 		"@tailwindcss/vite": "^4.1.11",
-		"nanoid": "^5.1.5",
+		"nanoid": "^5.1.16",
 		"react": "^19.1.1",
 		"react-confetti": "^6.4.0",
 		"react-dom": "^19.1.1",
